@@ -217,8 +217,11 @@ function addAnimations() {
     spriteArray[i].animation.framedDelay = 10;
     spriteArray[i].animation.looping = false;
     spriteArray[i].animation.playing = false;
+    activateSprite(spriteArray[i]);
   }
 }
+
+
 
 /*
  * function placeSprites()
@@ -254,7 +257,26 @@ function placeSprites(){
  * two sprites have been clicked, the function calls checkMatch().
  */
 
+ //Functions are hoisted to the top of the script. Variables are not hoisted.
 
+
+function activateSprite(s){
+  s.onMousePressed = function(){
+    console.log("hai!");
+    if(spritesActive && s.animation.getFrame() !== s.animation.getLastFrame()){
+      if(firstsprite === undefined){
+        firstsprite = s;
+        //flipSound.play();
+        s.animation.goToFrame(s.animation.getLastFrame());
+      }
+      else if(s !== firstsprite){
+        secondsprite = s;
+        //flipSound.play();
+          s.animation.goToFrame(s.animation.getLastFrame());
+      }
+    }
+  }
+}
 
 /*
  * function checkMatch()
